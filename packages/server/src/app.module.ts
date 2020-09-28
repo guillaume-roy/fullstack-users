@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 import configuration from './config/configuration';
+import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -10,6 +13,17 @@ import { UsersModule } from './users/users.module';
       load: [configuration],
     }),
     UsersModule,
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: configService.get('DATABASE_TYPE'),
+        host: configService.get('DATABASE_HOST'),
+        port: configService.get('DATABASE_PORT'),
+        database: configService.get('DATABASE_NAME'),
+        entities: [User],
+        useUnifiedTopology: true,
+      }) as MongoConnectionOptions,
+    })
   ],
 })
 export class AppModule { }
