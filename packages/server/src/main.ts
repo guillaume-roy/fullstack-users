@@ -16,7 +16,6 @@ async function bootstrap() {
       disableErrorMessages: isProduction,
     }),
   );
-  app.useGlobalGuards(new FranceRequestGuard());
   app.use(helmet());
   app.use(requestIp.mw());
 
