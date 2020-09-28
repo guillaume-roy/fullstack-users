@@ -27,9 +27,9 @@ export class UsersService {
       ? {
         where: {
           $or: [
-            { email: query },
-            { firstname: query },
-            { lastname: query },
+            { email: { $regex: query, $options: 'i' } },
+            { firstname: { $regex: query, $options: 'i' } },
+            { lastname: { $regex: query, $options: 'i' } },
           ],
         },
       }
