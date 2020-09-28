@@ -17,7 +17,8 @@ describe('UsersService', () => {
         {
           provide: getRepositoryToken(User),
           useClass: MongoRepository,
-        }],
+        },
+      ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
@@ -35,7 +36,9 @@ describe('UsersService', () => {
       mockResult.firstname = 'John';
       mockResult.lastname = 'Doe';
       mockResult.password = await bcrypt.hash('Test123456!', 10);
-      jest.spyOn(repository, 'save').mockImplementation(() => Promise.resolve(mockResult));
+      jest
+        .spyOn(repository, 'save')
+        .mockImplementation(() => Promise.resolve(mockResult));
 
       const dto = new CreateUserDto();
       dto.email = 'test@test.com';
@@ -62,7 +65,9 @@ describe('UsersService', () => {
       mockResult2.firstname = 'Jack';
       mockResult2.lastname = 'Smith';
       mockResult2.password = await bcrypt.hash('Test123456!', 10);
-      jest.spyOn(repository, 'find').mockImplementation(() => Promise.resolve([mockResult, mockResult2]));
+      jest
+        .spyOn(repository, 'find')
+        .mockImplementation(() => Promise.resolve([mockResult, mockResult2]));
 
       const result = await service.findAll();
 
@@ -71,12 +76,16 @@ describe('UsersService', () => {
       expect(result[0].email).toBe('test@test.com');
       expect(result[0].firstname).toBe('John');
       expect(result[0].lastname).toBe('Doe');
-      expect(await bcrypt.compare('Test123456!', result[0].password)).toBe(true);
+      expect(await bcrypt.compare('Test123456!', result[0].password)).toBe(
+        true,
+      );
 
       expect(result[1].email).toBe('test2@test.com');
       expect(result[1].firstname).toBe('Jack');
       expect(result[1].lastname).toBe('Smith');
-      expect(await bcrypt.compare('Test123456!', result[1].password)).toBe(true);
+      expect(await bcrypt.compare('Test123456!', result[1].password)).toBe(
+        true,
+      );
     });
 
     it('should find user on firstname', async () => {
@@ -85,7 +94,9 @@ describe('UsersService', () => {
       mockResult.firstname = 'John';
       mockResult.lastname = 'Doe';
       mockResult.password = await bcrypt.hash('Test123456!', 10);
-      jest.spyOn(repository, 'find').mockImplementation(() => Promise.resolve([mockResult]));
+      jest
+        .spyOn(repository, 'find')
+        .mockImplementation(() => Promise.resolve([mockResult]));
 
       const result = await service.findAll('John');
 
@@ -100,7 +111,9 @@ describe('UsersService', () => {
       mockResult.firstname = 'John';
       mockResult.lastname = 'Doe';
       mockResult.password = await bcrypt.hash('Test123456!', 10);
-      jest.spyOn(repository, 'find').mockImplementation(() => Promise.resolve([mockResult]));
+      jest
+        .spyOn(repository, 'find')
+        .mockImplementation(() => Promise.resolve([mockResult]));
 
       const result = await service.findAll('Doe');
 
@@ -115,7 +128,9 @@ describe('UsersService', () => {
       mockResult.firstname = 'John';
       mockResult.lastname = 'Doe';
       mockResult.password = await bcrypt.hash('Test123456!', 10);
-      jest.spyOn(repository, 'find').mockImplementation(() => Promise.resolve([mockResult]));
+      jest
+        .spyOn(repository, 'find')
+        .mockImplementation(() => Promise.resolve([mockResult]));
 
       const result = await service.findAll('test@test.com');
 

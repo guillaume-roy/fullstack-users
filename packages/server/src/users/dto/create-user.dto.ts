@@ -11,15 +11,15 @@ import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
 const PASSWORD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,30}$/;
 
 export class CreateUserDto {
-    @IsEmail()
-    public email: string;
+  @IsEmail()
+  public email: string;
 
-    @Matches(PASSWORD_REGEX)
-    public password: string;
+  @Matches(PASSWORD_REGEX)
+  public password: string;
 
-    @IsNotEmpty()
-    public lastname: string;
+  @IsNotEmpty()
+  public lastname: string;
 
-    @IsNotEmpty()
-    public firstname: string;
+  @IsNotEmpty()
+  public firstname: string;
 }

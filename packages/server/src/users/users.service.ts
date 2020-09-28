@@ -9,10 +9,9 @@ import { validate, validateOrReject } from 'class-validator';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private readonly userRepository: MongoRepository<User>
-  ) {
-
-  }
+    @InjectRepository(User)
+    private readonly userRepository: MongoRepository<User>,
+  ) {}
   public async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.email = createUserDto.email.toLowerCase();
@@ -25,14 +24,14 @@ export class UsersService {
   public findAll(query?: string): Promise<User[]> {
     const queryFilters = query
       ? {
-        where: {
-          $or: [
-            { email: { $regex: query, $options: 'i' } },
-            { firstname: { $regex: query, $options: 'i' } },
-            { lastname: { $regex: query, $options: 'i' } },
-          ],
-        },
-      }
+          where: {
+            $or: [
+              { email: { $regex: query, $options: 'i' } },
+              { firstname: { $regex: query, $options: 'i' } },
+              { lastname: { $regex: query, $options: 'i' } },
+            ],
+          },
+        }
       : undefined;
     return this.userRepository.find(queryFilters);
   }

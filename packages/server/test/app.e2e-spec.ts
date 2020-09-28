@@ -22,10 +22,12 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({
-      transform: true,
-      disableErrorMessages: process.env.NODE_ENV === 'production',
-    }));
+    app.useGlobalPipes(
+      new ValidationPipe({
+        transform: true,
+        disableErrorMessages: process.env.NODE_ENV === 'production',
+      }),
+    );
     await app.init();
     await clearUsers();
   });
@@ -38,7 +40,7 @@ describe('AppController (e2e)', () => {
           email: 'test@test.com',
           firstname: 'Jane',
           lastname: 'Doe',
-          password: 'Test123456!'
+          password: 'Test123456!',
         })
         .expect(201)
         .expect(async res => {
@@ -46,7 +48,9 @@ describe('AppController (e2e)', () => {
           expect(res.body.email).toBe('test@test.com');
           expect(res.body.firstname).toBe('Jane');
           expect(res.body.lastname).toBe('Doe');
-          expect(await bcrypt.compare('Test123456!', res.body.password)).toBe(true);
+          expect(await bcrypt.compare('Test123456!', res.body.password)).toBe(
+            true,
+          );
         });
     });
 
@@ -57,7 +61,7 @@ describe('AppController (e2e)', () => {
           email: 'dfsfsfsdfds',
           firstname: 'Jane',
           lastname: 'Doe',
-          password: 'Test123456!'
+          password: 'Test123456!',
         })
         .expect(400);
     });
@@ -68,7 +72,7 @@ describe('AppController (e2e)', () => {
         .send({
           email: 'test@test.com',
           lastname: 'Doe',
-          password: 'Test123456!'
+          password: 'Test123456!',
         })
         .expect(400);
     });
@@ -79,7 +83,7 @@ describe('AppController (e2e)', () => {
         .send({
           email: 'test@test.com',
           firstname: 'Jane',
-          password: 'Test123456!'
+          password: 'Test123456!',
         })
         .expect(400);
     });
@@ -91,7 +95,7 @@ describe('AppController (e2e)', () => {
           email: 'test@test.com',
           firstname: 'Jane',
           lastname: 'Doe',
-          password: '1234'
+          password: '1234',
         })
         .expect(400);
     });
@@ -113,7 +117,7 @@ describe('AppController (e2e)', () => {
           email: 'test@test.com',
           firstname: 'Jane',
           lastname: 'Doe',
-          password: 'Test123456!'
+          password: 'Test123456!',
         });
 
       return request(app.getHttpServer())
