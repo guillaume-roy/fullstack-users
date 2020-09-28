@@ -4,6 +4,8 @@ import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express/interfaces/nest-express-application.interface';
+import * as requestIp from 'request-ip';
+import { FranceRequestGuard } from './france-request.guard';
 
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -14,7 +16,9 @@ async function bootstrap() {
       disableErrorMessages: isProduction,
     }),
   );
+  app.useGlobalGuards(new FranceRequestGuard());
   app.use(helmet());
+  app.use(requestIp.mw());
 
   if (isProduction) {
     app.use(
