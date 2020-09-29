@@ -7,7 +7,4 @@ unittest:
     - lerna bootstrap
     - cd packages/server
     - npm run test:cov
-  artifacts:
-    when: always
-    reports:
-      junit: packages/server/coverage/clover.xml
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
