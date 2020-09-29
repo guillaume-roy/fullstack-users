@@ -7,6 +7,7 @@ import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
 import * as requestIp from 'request-ip';
 import { initLogger } from './config/log';
 import * as morgan from 'morgan';
+import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -33,6 +34,16 @@ async function bootstrap() {
   }
   app.use(morgan(process.env.LOG_FORMAT));
   app.use(helmet());
+
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: [process.env.QUEUE_URL],
+      queue: process.env.QUEUE_NAME,
+      queueOptions: { durable: false },
+    },
+  });
+  await app.startAllMicroservicesAsync();
 
   await app.listen(parseInt(process.env.PORT, 10) || 3000);
 }

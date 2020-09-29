@@ -7,7 +7,7 @@ import { getRepository } from 'typeorm';
 import { User } from '../src/users/entities/user.entity';
 import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
 import * as requestIp from 'request-ip';
-import { FranceRequestGuard } from '../src/france-request.guard';
+import { FranceRequestGuard } from '../src/guards/france-request.guard';
 
 const FRENCH_IP_ADDRESS = '51.83.90.83';
 const US_IP_ADDRESS = '8.8.8.8';
@@ -157,8 +157,9 @@ describe('AppController (e2e)', () => {
     });
   });
 
-  afterAll(async () => {
+  afterAll(async done => {
     await clearUsers();
-    app.close();
+    await app.close();
+    done();
   });
 });

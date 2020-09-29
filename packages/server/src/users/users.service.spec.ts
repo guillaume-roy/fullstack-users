@@ -6,6 +6,8 @@ import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcryptjs';
 import { Logger } from '@nestjs/common';
+import { QueueService } from '../queue/queue.service';
+import { ObjectID } from 'mongodb';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -29,6 +31,12 @@ describe('UsersService', () => {
             verbose: jest.fn(),
           }),
         },
+        {
+          provide: QueueService,
+          useFactory: () => ({
+            send: jest.fn(),
+          }),
+        }
       ],
     }).compile();
 
@@ -47,6 +55,7 @@ describe('UsersService', () => {
       mockResult.firstname = 'John';
       mockResult.lastname = 'Doe';
       mockResult.password = await bcrypt.hash('Test123456!', 10);
+      mockResult.id = new ObjectID('342342342342');
       jest
         .spyOn(repository, 'save')
         .mockImplementation(() => Promise.resolve(mockResult));

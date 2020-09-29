@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UsersModule } from './users/users.module';
       entities: [User],
       useUnifiedTopology: true,
     } as MongoConnectionOptions),
+    QueueModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
