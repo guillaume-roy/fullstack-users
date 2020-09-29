@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
 
 /*
@@ -12,14 +13,18 @@ const PASSWORD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,3
 
 export class CreateUserDto {
   @IsEmail()
+  @ApiProperty()
   public email: string;
 
   @Matches(PASSWORD_REGEX)
+  @ApiProperty()
   public password: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   public lastname: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   public firstname: string;
 }

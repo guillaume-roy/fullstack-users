@@ -8,6 +8,7 @@ import * as requestIp from 'request-ip';
 import { initLogger } from './config/log';
 import * as morgan from 'morgan';
 import { Transport } from '@nestjs/microservices';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -61,6 +62,15 @@ async function bootstrap() {
     },
   });
   await app.startAllMicroservicesAsync();
+
+  // Generate Swagger (OpenAPI)
+  const options = new DocumentBuilder()
+    .setTitle('Fullstack-Users')
+    .setDescription('Fullstack-Users API description')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(parseInt(process.env.PORT, 10) || 3000);
 }
