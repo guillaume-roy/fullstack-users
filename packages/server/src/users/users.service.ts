@@ -1,4 +1,10 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  LoggerService,
+  NotImplementedException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcryptjs';
@@ -11,13 +17,16 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: MongoRepository<User>,
+    @Inject(Logger) private readonly logger: LoggerService,
   ) {}
+
   public async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.email = createUserDto.email.toLowerCase();
     user.firstname = createUserDto.firstname;
     user.lastname = createUserDto.lastname;
     user.password = await bcrypt.hash(createUserDto.password, 10);
+    this.logger.debug('Creation of user', JSON.stringify(user));
     return this.userRepository.save(user);
   }
 

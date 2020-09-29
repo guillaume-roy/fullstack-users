@@ -5,10 +5,15 @@ import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
 import * as requestIp from 'request-ip';
+import { WinstonModule } from 'nest-winston';
+import { format, transports } from 'winston';
+import { initLogger } from './config/log';
 
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: initLogger(),
+  });
   app.use(require('express-status-monitor')());
   app.useGlobalPipes(
     new ValidationPipe({
@@ -16,7 +21,6 @@ async function bootstrap() {
       disableErrorMessages: isProduction,
     }),
   );
-  app.use(helmet());
   app.use(requestIp.mw());
 
   if (isProduction) {
@@ -28,6 +32,7 @@ async function bootstrap() {
     );
     app.set('trust proxy', 1);
   }
+  app.use(helmet());
 
   await app.listen(parseInt(process.env.PORT, 10) || 3000);
 }
