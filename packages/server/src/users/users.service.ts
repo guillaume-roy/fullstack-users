@@ -18,7 +18,7 @@ export class UsersService {
     @InjectRepository(User)
     private readonly userRepository: MongoRepository<User>,
     @Inject(Logger) private readonly logger: LoggerService,
-  ) {}
+  ) { }
 
   public async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
@@ -26,21 +26,21 @@ export class UsersService {
     user.firstname = createUserDto.firstname;
     user.lastname = createUserDto.lastname;
     user.password = await bcrypt.hash(createUserDto.password, 10);
-    this.logger.debug('Creation of user', JSON.stringify(user));
+    this.logger.debug('Creation of user');
     return this.userRepository.save(user);
   }
 
   public findAll(query?: string): Promise<User[]> {
     const queryFilters = query
       ? {
-          where: {
-            $or: [
-              { email: { $regex: query, $options: 'i' } },
-              { firstname: { $regex: query, $options: 'i' } },
-              { lastname: { $regex: query, $options: 'i' } },
-            ],
-          },
-        }
+        where: {
+          $or: [
+            { email: { $regex: query, $options: 'i' } },
+            { firstname: { $regex: query, $options: 'i' } },
+            { lastname: { $regex: query, $options: 'i' } },
+          ],
+        },
+      }
       : undefined;
     return this.userRepository.find(queryFilters);
   }

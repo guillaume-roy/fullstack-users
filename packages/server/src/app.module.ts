@@ -21,4 +21,4 @@ import { UsersModule } from './users/users.module';
     } as MongoConnectionOptions),
   ],
 })
-export class AppModule { }
+export class AppModule {}

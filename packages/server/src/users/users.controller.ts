@@ -3,9 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Put,
-  Param,
-  Delete,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -15,7 +12,7 @@ import { FranceRequestGuard } from '../france-request.guard';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   @UseGuards(FranceRequestGuard)

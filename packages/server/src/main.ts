@@ -5,9 +5,8 @@ import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
 import * as requestIp from 'request-ip';
-import { WinstonModule } from 'nest-winston';
-import { format, transports } from 'winston';
 import { initLogger } from './config/log';
+import * as morgan from 'morgan';
 
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -32,6 +31,7 @@ async function bootstrap() {
     );
     app.set('trust proxy', 1);
   }
+  app.use(morgan(process.env.LOG_FORMAT));
   app.use(helmet());
 
   await app.listen(parseInt(process.env.PORT, 10) || 3000);
