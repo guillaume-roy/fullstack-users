@@ -9,6 +9,7 @@ import * as requestIp from 'request-ip';
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.use(require('express-status-monitor')());
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
