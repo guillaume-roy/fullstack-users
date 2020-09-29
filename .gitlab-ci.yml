@@ -10,4 +10,4 @@ unittest:
   artifacts:
     when: always
     reports:
-      junit: coverage/clover.xml
+      junit: packages/server/coverage/clover.xml
