@@ -7,12 +7,22 @@ export class FranceRequestGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    if (process.env.NODE_ENV !== 'production') {
+    const clientIp = this.getClientIP(context.switchToHttp().getRequest());
+
+    if (this.isLocalhost(clientIp)) {
       return true;
     }
 
-    const clientIp = context.switchToHttp().getRequest().clientIp;
-    return Axios.get(`https://ipapi.co/${clientIp}/country`)
-      .then(response => response.data === 'FR');
+    return Axios.get(`https://ipapi.co/${clientIp}/country`).then(
+      response => response.data === 'FR',
+    );
+  }
+
+  public getClientIP(req: any) {
+    return req.clientIp;
+  }
+
+  private isLocalhost(ip: string): boolean {
+    return ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(ip);
   }
 }

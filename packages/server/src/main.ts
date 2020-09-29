@@ -3,9 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
-import { NestExpressApplication } from '@nestjs/platform-express/interfaces/nest-express-application.interface';
+import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
 import * as requestIp from 'request-ip';
-import { FranceRequestGuard } from './france-request.guard';
 
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';

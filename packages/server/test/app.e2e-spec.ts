@@ -5,6 +5,12 @@ import { AppModule } from './../src/app.module';
 import * as bcrypt from 'bcryptjs';
 import { getRepository } from 'typeorm';
 import { User } from '../src/users/entities/user.entity';
+import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
+import * as requestIp from 'request-ip';
+import { FranceRequestGuard } from '../src/france-request.guard';
+
+const FRENCH_IP_ADDRESS = '51.83.90.83';
+const US_IP_ADDRESS = '8.8.8.8';
 
 async function clearUsers() {
   const count = await getRepository(User).count();
@@ -15,20 +21,26 @@ async function clearUsers() {
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  let guard: FranceRequestGuard;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleFixture.createNestApplication<NestExpressApplication>();
     app.useGlobalPipes(
       new ValidationPipe({
         transform: true,
         disableErrorMessages: process.env.NODE_ENV === 'production',
       }),
     );
+    app.use(requestIp.mw());
     await app.init();
+
+    guard = app.get<FranceRequestGuard>(FranceRequestGuard);
+    jest.spyOn(guard, 'getClientIP').mockReturnValue(FRENCH_IP_ADDRESS);
+
     await clearUsers();
   });
 
@@ -98,6 +110,20 @@ describe('AppController (e2e)', () => {
           password: '1234',
         })
         .expect(400);
+    });
+
+    it('/users (POST) should fail on IP outside of France', () => {
+      jest.spyOn(guard, 'getClientIP').mockReturnValue(US_IP_ADDRESS);
+      return request(app.getHttpServer())
+        .post('/users')
+        .set('X-Forwarded-For', US_IP_ADDRESS)
+        .send({
+          email: 'test@test.com',
+          firstname: 'Jane',
+          lastname: 'Doe',
+          password: '1234',
+        })
+        .expect(403);
     });
 
     it('/users (GET)', () => {
