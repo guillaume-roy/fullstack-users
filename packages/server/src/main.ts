@@ -11,18 +11,28 @@ import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
+
+  // Init App with logger
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: initLogger(),
   });
+
+  // Enable monitoring
+  // http://localhost:3000/status
   app.use(require('express-status-monitor')());
+
+  // Enable DTO validation
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
       disableErrorMessages: isProduction,
     }),
   );
+
+  // Get client IP
   app.use(requestIp.mw());
 
+  // Security rate limit
   if (isProduction) {
     app.use(
       rateLimit({
@@ -30,11 +40,18 @@ async function bootstrap() {
         max: 100, // limit each IP to 100 requests per windowMs
       }),
     );
+
+    // Enable this to get client IP when app is behind a reverse proxy
     app.set('trust proxy', 1);
   }
-  app.use(morgan(process.env.LOG_FORMAT));
+
+  // Security
   app.use(helmet());
 
+  // Logging HTTP requests
+  app.use(morgan(process.env.LOG_FORMAT));
+
+  // Connect to RabbitMQ
   app.connectMicroservice({
     transport: Transport.RMQ,
     options: {

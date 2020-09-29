@@ -8,10 +8,11 @@ import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
+    // Initialize environment variables
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    UsersModule,
+    // Initialize DB connection
     TypeOrmModule.forRoot({
       type: process.env.DATABASE_TYPE,
       host: process.env.DATABASE_HOST,
@@ -20,6 +21,7 @@ import { QueueModule } from './queue/queue.module';
       entities: [User],
       useUnifiedTopology: true,
     } as MongoConnectionOptions),
+    UsersModule,
     QueueModule,
   ],
 })
