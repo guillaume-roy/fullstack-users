@@ -1,16 +1,9 @@
-import {
-  Inject,
-  Injectable,
-  Logger,
-  LoggerService,
-  NotImplementedException,
-} from '@nestjs/common';
+import { Inject, Injectable, Logger, LoggerService } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcryptjs';
-import { getMongoRepository, MongoRepository } from 'typeorm';
+import { MongoRepository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { validate, validateOrReject } from 'class-validator';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +11,7 @@ export class UsersService {
     @InjectRepository(User)
     private readonly userRepository: MongoRepository<User>,
     @Inject(Logger) private readonly logger: LoggerService,
-  ) { }
+  ) {}
 
   public async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
@@ -33,14 +26,14 @@ export class UsersService {
   public findAll(query?: string): Promise<User[]> {
     const queryFilters = query
       ? {
-        where: {
-          $or: [
-            { email: { $regex: query, $options: 'i' } },
-            { firstname: { $regex: query, $options: 'i' } },
-            { lastname: { $regex: query, $options: 'i' } },
-          ],
-        },
-      }
+          where: {
+            $or: [
+              { email: { $regex: query, $options: 'i' } },
+              { firstname: { $regex: query, $options: 'i' } },
+              { lastname: { $regex: query, $options: 'i' } },
+            ],
+          },
+        }
       : undefined;
     return this.userRepository.find(queryFilters);
   }

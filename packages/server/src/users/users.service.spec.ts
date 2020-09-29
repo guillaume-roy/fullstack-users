@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcryptjs';
+import { Logger } from '@nestjs/common';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -17,6 +18,16 @@ describe('UsersService', () => {
         {
           provide: getRepositoryToken(User),
           useClass: MongoRepository,
+        },
+        {
+          provide: Logger,
+          useFactory: () => ({
+            debug: jest.fn(),
+            log: jest.fn(),
+            error: jest.fn(),
+            warn: jest.fn(),
+            verbose: jest.fn(),
+          }),
         },
       ],
     }).compile();

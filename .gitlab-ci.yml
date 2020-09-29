@@ -1,0 +1,13 @@
+image: node:lts-alpine
+
+unittest:
+  stage: test
+  script:
+    - npm i -g lerna
+    - lerna bootstrap
+    - cd packages/server
+    - npm run test:cov
+  artifacts:
+    when: always
+    reports:
+      junit: coverage/clover.xml
