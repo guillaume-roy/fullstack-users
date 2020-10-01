@@ -33,8 +33,11 @@ module.exports = function (config) {
 				base: 'ChromeHeadless',
 				flags: [
           '--disable-web-security',
+          '--no-sandbox',
+          '--headless',
           '--disable-gpu',
-          '--no-sandbox'
+          '--disable-translate',
+          '--disable-extensions'
         ],
 			},
 		},
