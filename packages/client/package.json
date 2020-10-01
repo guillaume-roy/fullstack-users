@@ -5,9 +5,9 @@
     "ng": "ng",
     "start:dev": "ng serve",
     "build": "ng build --prod",
-    "test": "ng test --watch=false",
+    "test": "ng test --watch=false --browsers=ChromeHeadless",
     "test:watch": "ng test",
-    "test:cov": "ng test --codeCoverage=true --watch=false",
+    "test:cov": "ng test --codeCoverage=true --watch=false --browsers=ChromeHeadless",
     "test:e2e": "ng e2e",
     "lint": "ng lint"
   },
