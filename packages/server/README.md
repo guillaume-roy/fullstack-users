@@ -10,6 +10,12 @@ Server backend for Fullstack-Users. Based on [Nest](https://github.com/nestjs/ne
 $ npm install
 ```
 
+## Building
+
+```bash
+$ npm run build
+```
+
 ## Running the app
 
 ```bash

@@ -61,9 +61,34 @@ supports JSON, CSV, XML and YAML.
 * Clone this repository
 
 ```bash
+$ npm i -g lerna
 $ lerna bootstrap
 ```
 * Server instructions : See [README](packages\server\README.md)
+* Client instructions : See [README](packages\client\README.md)
+
+## Building
+
+```bash
+$ npm run build
+```
+
+## Running the app
+
+```bash
+# unit tests
+$ npm run start:dev
+```
+
+## Tests
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test
+```
 
 ## Highlights
 

@@ -3,5 +3,13 @@
   "private": true,
   "devDependencies": {
     "lerna": "^3.22.1"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "start:dev": "lerna run --parallel start:dev",
+    "test": "lerna run --parallel test",
+    "test:cov": "lerna run --parallel test:cov",
+    "test:e2e": "lerna run --parallel test:e2e"
   }
 }
