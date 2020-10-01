@@ -15,9 +15,9 @@ server-unit-tests:
     - npm run test:cov
   coverage: /All\sfiles.*?\s+(\d+.\d+)/
 
-client-unit-tests:
-  stage: test
-  script:
-    - cd packages/client
-    - npm run test:cov
-  coverage: '/Lines \W+: (\d+\.\d+)%.*/'
+# client-unit-tests:
+#   stage: test
+#   script:
+#     - cd packages/client
+#     - npm run test:cov
+#   coverage: '/Lines \W+: (\d+\.\d+)%.*/'
