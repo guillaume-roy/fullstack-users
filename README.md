@@ -1,5 +1,8 @@
 # Fullstack-Users
 
+[![pipeline status](https://gitlab.com/guillaume.roy/fullstack-users/badges/master/pipeline.svg)](https://gitlab.com/guillaume.roy/fullstack-users/-/commits/master)
+[![coverage report](https://gitlab.com/guillaume.roy/fullstack-users/badges/master/coverage.svg)](https://gitlab.com/guillaume.roy/fullstack-users/-/commits/master)
+
 ## Description 
 
 A user is defined by the following attributes: email, password, name (first and last).
