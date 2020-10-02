@@ -4,6 +4,9 @@ import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UsersComponent } from './users/users.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -12,10 +15,13 @@ describe('AppComponent', () => {
         RouterTestingModule,
         MatToolbarModule,
         HttpClientModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatCardModule,
       ],
       declarations: [
         AppComponent,
-        UsersComponent
+        UsersComponent,
       ],
     }).compileComponents();
   });

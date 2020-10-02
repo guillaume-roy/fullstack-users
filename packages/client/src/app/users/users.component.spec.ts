@@ -5,6 +5,12 @@ import { of } from 'rxjs';
 import { User } from './user.model';
 import { UsersComponent } from './users.component';
 import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { UsersSearchComponent } from '../users-search/users-search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -12,8 +18,17 @@ describe('UsersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UsersComponent],
-      imports: [HttpClientModule, MatCardModule, MatListModule],
+      declarations: [UsersComponent, UsersSearchComponent],
+      imports: [
+        HttpClientModule,
+        MatCardModule,
+        MatListModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatIconModule,
+        BrowserAnimationsModule,
+      ],
     })
       .compileComponents();
   });

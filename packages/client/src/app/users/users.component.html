@@ -4,8 +4,10 @@
 
 <ng-template #usersList>
   <mat-card class="root-card">
+    <app-users-search></app-users-search>
     <mat-list role="list">
       <mat-list-item role="listitem" *ngFor="let user of users | async">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
         <div mat-line class="capitalize">{{user.displayName}}</div>
         <div mat-line><small>{{user.email}}</small></div>
         <div mat-line><small>{{user.password}}</small></div>
