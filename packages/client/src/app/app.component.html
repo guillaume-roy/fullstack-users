@@ -1,4 +1,8 @@
 <mat-toolbar color="primary">
   <span>{{ title }}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="showAddUserModal()">
+    <mat-icon>person_add_alt_1</mat-icon>
+  </button>
 </mat-toolbar>
 <app-users></app-users>

@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Create a new user</h2>
+<mat-dialog-content>
+  <form #userForm="ngForm">
+    <div>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="user.email" name="email" type="email" required placeholder="Ex. john.doe@test.com">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Firstname</mat-label>
+        <input matInput [(ngModel)]="user.firstname" name="firstname" required placeholder="Ex. John">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Lastname</mat-label>
+        <input matInput [(ngModel)]="user.lastname" name="lastname" required placeholder="Ex. Doe">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="user.password" name="password" required type="password">
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" (click)="saveUser()">Add</button>
+</mat-dialog-actions>

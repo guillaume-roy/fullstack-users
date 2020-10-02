@@ -27,4 +27,8 @@ export class StoreService {
   public triggerSearch(search: string): void {
     this.search.next(search);
   }
+
+  public userCreated(): void {
+    this.search.next(this.search.getValue());
+  }
 }

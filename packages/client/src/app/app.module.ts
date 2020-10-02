@@ -10,14 +10,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersSearchComponent } from './users-search/users-search.component';
+import { UserCreateModalComponent } from './user-create-modal/user-create-modal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
-    UsersSearchComponent
+    UsersSearchComponent,
+    UserCreateModalComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,10 @@ import { UsersSearchComponent } from './users-search/users-search.component';
     MatFormFieldModule,
     MatIconModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
+    FormsModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
