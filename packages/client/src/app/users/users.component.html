@@ -1,10 +1,13 @@
+<mat-card class="root-card">
+  <app-users-search></app-users-search>
+</mat-card>
+
 <mat-card *ngIf="(users | async)?.length === 0; else usersList" class="root-card no-user-found">
   No user found
 </mat-card>
 
 <ng-template #usersList>
   <mat-card class="root-card">
-    <app-users-search></app-users-search>
     <mat-list role="list">
       <mat-list-item role="listitem" *ngFor="let user of users | async">
         <mat-icon mat-list-icon>account_circle</mat-icon>
