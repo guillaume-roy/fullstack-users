@@ -16,6 +16,9 @@ async function bootstrap() {
   // Init App with logger
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: initLogger(),
+    cors: {
+      origin: ['http://localhost:4200'],
+    },
   });
 
   // Enable monitoring

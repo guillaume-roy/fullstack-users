@@ -3,13 +3,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UsersComponent } from './users/users.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        MatToolbarModule
+        MatToolbarModule,
+        HttpClientModule,
       ],
       declarations: [
         AppComponent,
@@ -30,10 +32,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Fullstack-Users');
   });
 
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement;
-  //   expect(compiled.querySelector('.content span').textContent).toContain('Fullstack-Users app is running!');
-  // });
+  it('should contain toolbar with title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('mat-toolbar span').textContent).toContain('Fullstack-Users');
+  });
 });
