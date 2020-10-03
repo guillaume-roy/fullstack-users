@@ -79,7 +79,6 @@ $ npm run build
 ## Running the app
 
 ```bash
-# unit tests
 $ npm run start:dev
 ```
 
@@ -89,8 +88,11 @@ $ npm run start:dev
 # unit tests
 $ npm run test
 
+# coverage tests
+$ npm run test:cov
+
 # e2e tests
-$ npm run test
+$ npm run test:e2e
 ```
 
 ## Highlights

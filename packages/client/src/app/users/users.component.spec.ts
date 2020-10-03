@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { UsersSearchComponent } from '../users-search/users-search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -28,6 +29,7 @@ describe('UsersComponent', () => {
         MatFormFieldModule,
         MatIconModule,
         BrowserAnimationsModule,
+        MatDialogModule,
       ],
     })
       .compileComponents();
@@ -45,7 +47,7 @@ describe('UsersComponent', () => {
 
   it(`should display "No user found" if no users`, () => {
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('mat-card').textContent).toContain('No user found');
+    expect(compiled.querySelector('mat-card:nth-child(2)').textContent).toContain('No user found');
   });
 
   it(`should display a list of users if there is users`, () => {

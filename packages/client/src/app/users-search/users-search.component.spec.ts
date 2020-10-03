@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('UsersSearchComponent', () => {
   let component: UsersSearchComponent;
@@ -19,6 +20,7 @@ describe('UsersSearchComponent', () => {
         MatFormFieldModule,
         MatCardModule,
         MatInputModule,
+        MatDialogModule,
       ],
     })
       .compileComponents();
