@@ -30,6 +30,7 @@ $ npm run start:dev
 $ npm run test
 
 # e2e tests
+# You first need to start the server
 $ npm run test:e2e
 ```
 
